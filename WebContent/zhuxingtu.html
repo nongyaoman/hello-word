@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>柱形图</title>
+<script src="jquery-3.2.1/jquery-3.2.1.min.js"></script>
+<!-- 引入 ECharts 文件 -->
+<script src="echarts/echarts.js"></script>
+<style type="text/css">
+	#main{
+		border: 5px solid red;
+		margin-left:450px;
+		margin-top:100px;
+	}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	 // 基于准备好的dom，初始化echarts实例
+   var myChart = echarts.init(document.getElementById('main'));
+   option = {
+		    title: {
+		        text: '本月跑赢上证指数',
+		        x:'center',
+		    },
+		    grid: {
+		        left: '3%',
+		        right: '4%',
+		        bottom: '3%',
+		        containLabel: true
+		    }, 
+		    xAxis: {
+		    	show:false,
+		        type: 'value',
+		        boundaryGap: [0, 0.01]
+		    },
+		    yAxis: {
+		    	axisTick:{
+		    		show:false
+		    	},
+		    	axisLine:{
+		    		show:false
+		    	},
+		        type: 'category',
+		        data: ['创业板','深证','上证']
+		    },
+		    series: [
+		        {
+		        	name:'创业板',
+		            type: 'bar',
+		            barWidth : 30,//柱图宽度
+		            data: [18203,45847,12354],
+		            itemStyle: {
+		                normal: {
+		                    label: {
+		                        show: true,
+		                        position: 'right',
+		                        textStyle: {
+		                            color: 'red'
+		                        },
+		                    }
+		                }
+		            }
+		        }
+		    ]
+		};
+   myChart.setOption(option); 
+})
+</script>
+</head>
+<body>
+	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 800px;height:600px;"></div>
+</body>
+</html>

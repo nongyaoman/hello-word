@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Zrender</title>
+<script src="jquery-3.2.1/jquery-3.2.1.min.js"></script>
+<!-- 引入 ECharts 文件 -->
+<script src="echarts/echarts.js"></script>	
+<script src="echarts/esl.js"></script>
+<script src="zrender/zrender.js"></script>
+<style type="text/css">
+	
+	#main{
+		border: 1px solid red;
+		margin-left:250px;
+		margin-top:100px;
+	}
+
+</style>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	 // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: 'ECharts 入门示例'
+        },
+        tooltip: {},
+        legend: {
+        	bottom:5,
+        	data:[
+                  {
+            	     name:'我',
+                     //icon :'square',
+            	     icon:'image://images/zcfx_01.png',
+                     textStyle:{fontWeight:'bold'},
+                   },
+                   {
+                	  name:'上证',
+                      //icon : 'circle',  //你想要的图例样式  
+                	  icon:'image://images/xz_03.png',
+                      textStyle:{fontWeight:'bold', }
+                	
+                    },
+                    {
+                	  name:'深证',
+                      //icon : 'circle', 
+                      icon:'image://images/xz_02.png',
+                      textStyle:{fontWeight:'bold',}
+	                	
+	                 }
+              ]
+        },
+        xAxis: {
+            data: ["1","2","3","4","5","6"]
+        },
+        yAxis: {},
+        series: [{
+            name: '我',
+            symbolSize:10,
+            type: 'line',
+            data: [5, 20, 48, 58, 10, 19]
+        },{
+            name: '上证',
+            type: 'line',
+            data: [2, 30, 36, 10, 22, 20]
+        },{
+            name: '深证',
+            type: 'line',
+            data: [8, 20, 28, 19, 33, 55]
+        },
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    
+    
+
+       //引入事件相关js  
+         //var ecConfig = require('zrender/config');
+         myChart.on('legendselectchanged', function (param){  
+             var selected = param.selected; 
+             var currentTarget = param.name;  
+             switch(currentTarget){  
+                case '我':  
+                     if (selected['我']) { 
+                         option.legend.data[0].icon='image://images/zcfx_01.png';  
+                     }else{ 
+                         option.legend.data[0].icon='image://images/xz_02.png';  
+                     }  
+                     break;  
+                 case '上证':  
+                     if (selected['上证']) {  
+                         option.legend.data[1].icon='image://images/xz_02.png';  
+                     }else{                
+                         option.legend.data[1].icon='image://images/xz_03.png';  
+                     }  
+                     break;  
+                 case '深证':  
+                     if (selected['深证']) {  
+                         option.legend.data[2].icon='image://images/xz_02.png';  
+                     }else{                
+                         option.legend.data[2].icon='image://images/xz_03.png';  
+                     }  
+                     break;  
+             }  
+               
+             myChart.setOption(option);  
+         }); 
+})
+       
+        
+        
+</script>
+
+
+	
+</head>
+<body>
+	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    
+</body>
+</html>
